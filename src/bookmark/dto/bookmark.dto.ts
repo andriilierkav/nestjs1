@@ -1,9 +1,11 @@
 import {
+  IsArray,
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUrl,
+  IsUrl, ValidateNested,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class BookmarkDto {
   @IsString()
@@ -20,4 +22,11 @@ export class BookmarkDto {
 
   @IsOptional()
   userIdentifier?: number;
+}
+
+export class CreateMultipleBookmarksDto {
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => BookmarkDto)
+  bookmarks: BookmarkDto[];
 }
