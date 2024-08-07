@@ -6,7 +6,7 @@ import { LoggerService } from './logger.service';
   imports: [],
   controllers: [],
   providers: [LoggerService],
-  exports: [LoggerModule]
+  exports: [LoggerModule],
 })
 export class LoggerModule {
   test() {

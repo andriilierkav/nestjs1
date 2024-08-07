@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { DateTime } from 'luxon';
 
 @Injectable()
 export class TestService {
-  getDateTime(): { date: string, time: string } {
-    const now = new Date();
+  getDateTime(): { date: string; time: string } {
+    const dt = DateTime.now();
     return {
-      date: now.toISOString().split('T')[0],
-      time: now.toTimeString().split(' ')[0]
+      date: dt.toFormat('yyyy-MM-dd'),
+      time: dt.toLocaleString(DateTime.TIME_24_WITH_SECONDS),
     };
   }
   getSortedArray(body: string[]): string[] {

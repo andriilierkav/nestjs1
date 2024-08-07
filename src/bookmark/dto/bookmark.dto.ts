@@ -3,7 +3,8 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUrl, ValidateNested,
+  IsUrl,
+  ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 

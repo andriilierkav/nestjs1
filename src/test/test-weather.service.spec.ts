@@ -20,12 +20,11 @@ global.fetch = jest.fn(() =>
     blob: jest.fn(),
     formData: jest.fn(),
     text: jest.fn(),
-  } as Response)
+  } as Response),
 );
 
 describe('TestWeatherService', () => {
   let service: TestWeatherService;
-  let configService: ConfigService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -49,7 +48,9 @@ describe('TestWeatherService', () => {
       ],
     }).compile();
 
-    service = module.get<TestWeatherService>(TestWeatherService) as TestWeatherService;
+    service = module.get<TestWeatherService>(
+      TestWeatherService,
+    ) as TestWeatherService;
     configService = module.get<ConfigService>(ConfigService) as ConfigService;
   });
 
@@ -60,7 +61,9 @@ describe('TestWeatherService', () => {
   it('should get API URL', () => {
     const city = 'Paris';
     const url = service['getApiUrl'](city);
-    expect(url).toBe('http://api.weatherapi.com/v1/current.json?key=fake-api-key&q=' + city);
+    expect(url).toBe(
+      'http://api.weatherapi.com/v1/current.json?key=fake-api-key&q=' + city,
+    );
   });
 
   it('should get weather data for all cities', async () => {
@@ -90,7 +93,7 @@ describe('TestWeatherService', () => {
         blob: jest.fn(),
         formData: jest.fn(),
         text: jest.fn(),
-      } as Response)
+      } as Response),
     );
 
     const city = 'InvalidCity';

@@ -18,7 +18,18 @@ describe('TestService', () => {
   });
 
   it('should return sorted array', () => {
-    const body = ['Paris', 'New York', 'London', 'Berlin', 'Paris', 'Madrid', 'Kiev', 'Rome', 'Prague', 'Lisbon'];
+    const body = [
+      'Paris',
+      'New York',
+      'London',
+      'Berlin',
+      'Paris',
+      'Madrid',
+      'Kiev',
+      'Rome',
+      'Prague',
+      'Lisbon',
+    ];
     const sortedArray = testService.getSortedArray(body);
     expect(sortedArray).toEqual(body.sort());
   });

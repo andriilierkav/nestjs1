@@ -6,38 +6,41 @@ import { BookmarkDto, CreateMultipleBookmarksDto } from './dto';
 
 @Injectable()
 export class BookmarkService {
-  constructor(private prisma: PrismaService) {
-
-  }
+  constructor(private prisma: PrismaService) {}
 
   async createMultiple(@GetUser() user: User, dto: CreateMultipleBookmarksDto) {
     if (Array.isArray(dto.bookmarks)) {
-      const bookmarks = await Promise.all(dto.bookmarks.map(async (bookmark) => {
-        return await this.createBookmark(user, bookmark);
-      }));
+      const bookmarks = await Promise.all(
+        dto.bookmarks.map(async (bookmark) => {
+          return await this.createBookmark(user, bookmark);
+        }),
+      );
 
       return { message: 'Bookmarks created successfully', bookmarks };
     }
 
     return { message: 'Invalid request' };
-
   }
 
   public async createBookmark(@GetUser() user: User, dto: BookmarkDto) {
     let userId = user.id;
 
-    if(typeof dto.userIdentifier !== undefined && dto.userIdentifier) {
-      if(+user.permissions <= 1) {
-        throw new ForbiddenException('You do not have permission to create link for another user')
-      }else{
+    if (typeof dto.userIdentifier !== undefined && dto.userIdentifier) {
+      if (+user.permissions <= 1) {
+        throw new ForbiddenException(
+          'You do not have permission to create link for another user',
+        );
+      } else {
         const linkUser = await this.prisma.user.findUnique({
           where: {
-            id: +dto.userIdentifier
-          }
+            id: +dto.userIdentifier,
+          },
         });
 
-        if(!linkUser) {
-          throw new ForbiddenException(`User with ID ${dto.userIdentifier} does not exist`)
+        if (!linkUser) {
+          throw new ForbiddenException(
+            `User with ID ${dto.userIdentifier} does not exist`,
+          );
         }
 
         userId = +dto.userIdentifier;
@@ -49,8 +52,8 @@ export class BookmarkService {
         title: dto.title,
         link: dto.link,
         description: dto.description,
-        userId: userId
-      }
+        userId: userId,
+      },
     });
 
     return bookmark;
@@ -59,9 +62,9 @@ export class BookmarkService {
   getBookmarkById(id: number) {
     return this.prisma.user.findUnique({
       where: {
-        id: id
-      }
-    })
+        id: id,
+      },
+    });
   }
 
   async getUserBookmarks(userId: number, skip: number = 0, take: number = 10) {
@@ -72,11 +75,11 @@ export class BookmarkService {
         link: true,
         description: true,
         createdAt: true,
-        userId: true
+        userId: true,
       },
       where: {
-        userId: +userId
-      }
+        userId: +userId,
+      },
     });
 
     return bookmarks;

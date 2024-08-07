@@ -9,13 +9,13 @@ import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     UserModule,
     BookmarkModule,
     PrismaModule,
     LoggerModule,
-    TestModule
+    TestModule,
   ],
 })
 export class AppModule {}

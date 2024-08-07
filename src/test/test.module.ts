@@ -7,7 +7,6 @@ import { TestWeatherService } from './test-weather.service';
   imports: [],
   controllers: [TestController],
   providers: [TestService, TestWeatherService],
-  exports: []
+  exports: [],
 })
-export class TestModule {
-}
+export class TestModule {}
